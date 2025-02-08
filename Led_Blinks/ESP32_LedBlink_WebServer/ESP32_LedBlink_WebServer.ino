@@ -7,19 +7,21 @@ This provides a simple and interactive way to test the ESP32's functionality.
 */
 
 /*
-This is LED blink test, with a webpage hosted on ESP32 itself(Self host page). Serial monitor gives ESP32 IP address in output.
+This is LED blink test, with a webpage hosted on ESP32 itself(Self host page). Serial monitor gives ESP32 IP address in output, open it in browser.
+
+Press reset on ESP32 controller to see the IP address on Serial Monitor of IDE with baud rate : 115200
 */
 #include <WiFi.h>
 #include <WebServer.h>
 
 // Replace with your network credentials
-const char* ssid = "sashDlink2G";    //Change with wifi name
-const char* password = "XXXX1234";  //Change password
+const char* ssid = "XXXXXXXXXX";    //Change with wifi name
+const char* password = "XXXXXXXX";  //Change password
 
 WebServer server(80); // Web server on port 80
 
 const int onBoardLed = 2; // Onboard LED pin (GPIO2 for ESP32)
-bool ledState = false; // Track LED state
+bool ledState = false; // Track LED state. Default is OFF(False)
 
 // HTML content for the web page
 String HTMLPage() {
@@ -69,8 +71,9 @@ void setup() {
     delay(500);
     Serial.print(".");
   }
-  Serial.println("\nConnected to Wi-Fi");
+  Serial.println("\nConnected to Wi-Fi. Open the IP address in your browser");
   Serial.println(WiFi.localIP());
+  
 
   // Define server routes
   server.on("/", handleRoot);
